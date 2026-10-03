@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Snake in the browser, v2: your personal top 10. Steer with the arrow keys, WASD or a swipe.">
+  <meta name="theme-color" content="#0f1720">
+  <title>Snake v2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <header class="bar">
+      <h1>Snake <span class="tag">v2</span></h1>
+      <p class="scores"><span>Score <strong id="score">0</strong></span><span>Best <strong id="best">0</strong></span></p>
+    </header>
+    <div class="board-wrap">
+      <canvas id="board" width="480" height="480" aria-label="Snake board" role="img"></canvas>
+      <div class="overlay" id="overlay">
+        <p class="title" id="overlay-title">Snake</p>
+        <p class="hint" id="overlay-hint">Arrow keys, WASD or swipe to steer</p>
+        <form class="name-form" id="name-form" hidden>
+          <label for="name-input">Your name for the leaderboard</label>
+          <div class="name-row">
+            <input id="name-input" name="name" maxlength="16" autocomplete="nickname" enterkeyhint="done" spellcheck="false" required>
+            <button type="submit">Save</button>
+          </div>
+        </form>
+        <button id="start" type="button">Play</button>
+      </div>
+    </div>
+    <nav class="pad" aria-label="Touch controls">
+      <button type="button" data-dir="up" aria-label="Up">▲</button>
+      <button type="button" data-dir="left" aria-label="Left">◀</button>
+      <button type="button" data-dir="down" aria-label="Down">▼</button>
+      <button type="button" data-dir="right" aria-label="Right">▶</button>
+    </nav>
+    <section class="leaders" aria-labelledby="leaders-title">
+      <h2 id="leaders-title">Your top 10</h2>
+      <p class="empty" id="leaders-empty">No runs yet. Your 10 best runs show here, kept in this browser.</p>
+      <ol class="leader-list" id="leader-list"></ol>
+    </section>
+    <footer class="foot">Space pauses. Planned, built and shipped through the Hopper shared Project Backlog.</footer>
+  </main>
+  <script src="core.js"></script>
+  <script src="leaderboard.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

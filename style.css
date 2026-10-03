@@ -1,0 +1,56 @@
+:root {
+  --bg: #0f1720;
+  --panel: #16212d;
+  --grid: #1c2a38;
+  --text: #e6edf3;
+  --muted: #8ea0b2;
+  --snake: #3fd17a;
+  --head: #9ef0b9;
+  --food: #ff5d73;
+  --accent: #3fd17a;
+  --on-accent: #062312;
+  --line: #243444;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { display: grid; justify-items: center; padding: 16px; }
+.game { width: min(480px, 100%); display: grid; gap: 12px; }
+.bar { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.bar h1 { margin: 0; font-size: 24px; letter-spacing: 0.02em; }
+.tag { font-size: 13px; font-weight: 600; color: var(--muted); vertical-align: middle; }
+.scores { margin: 0; display: flex; gap: 16px; color: var(--muted); }
+.scores strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.board-wrap { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--panel); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+canvas { width: 100%; height: 100%; display: block; touch-action: none; }
+.overlay { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; padding: 16px; background: rgba(15, 23, 32, 0.82); text-align: center; }
+.overlay .title { margin: 0; font-size: 32px; font-weight: 700; }
+.overlay .hint { margin: 0; color: var(--muted); }
+.overlay > button { margin-top: 8px; padding: 10px 28px; border: 0; border-radius: 999px; background: var(--accent); color: var(--on-accent); font: 600 17px/1 inherit; cursor: pointer; min-height: 44px; }
+.name-form { display: grid; gap: 6px; width: min(300px, 100%); margin-top: 4px; text-align: left; }
+.name-form label { font-size: 14px; color: var(--muted); }
+.name-row { display: flex; gap: 8px; }
+.name-row input { flex: 1; min-width: 0; min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--text); font: 16px/1.2 inherit; }
+.name-row button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 10px; background: var(--accent); color: var(--on-accent); font: 600 16px/1 inherit; cursor: pointer; }
+.overlay button:focus-visible, .pad button:focus-visible, .name-row input:focus-visible { outline: 3px solid var(--head); outline-offset: 2px; }
+.pad { display: none; grid-template-columns: repeat(3, 64px); grid-template-rows: repeat(2, 56px); justify-content: center; gap: 8px; }
+.pad button { border: 0; border-radius: 12px; background: var(--panel); color: var(--text); font-size: 20px; }
+.pad [data-dir="up"] { grid-column: 2; grid-row: 1; }
+.pad [data-dir="left"] { grid-column: 1; grid-row: 2; }
+.pad [data-dir="down"] { grid-column: 2; grid-row: 2; }
+.pad [data-dir="right"] { grid-column: 3; grid-row: 2; }
+.leaders { background: var(--panel); border-radius: 12px; padding: 12px 16px; }
+.leaders h2 { margin: 0 0 8px; font-size: 16px; }
+.leaders .empty { margin: 0; color: var(--muted); font-size: 14px; }
+.leader-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.leader-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; grid-template-areas: "rank who points" "rank meta meta"; column-gap: 8px; padding: 6px 0; border-top: 1px solid var(--line); }
+.leader-list li:first-child { border-top: 0; }
+.leader-list .rank { grid-area: rank; color: var(--muted); font-variant-numeric: tabular-nums; }
+.leader-list .who { grid-area: who; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.leader-list .points { grid-area: points; font-weight: 700; font-variant-numeric: tabular-nums; }
+.leader-list .meta { grid-area: meta; color: var(--muted); font-size: 13px; }
+.leader-list .fresh .who, .leader-list .fresh .points { color: var(--head); }
+.foot { color: var(--muted); font-size: 13px; text-align: center; }
+@media (pointer: coarse) { .pad { display: grid; } }
+/* While the name form shows, saving is the one main action; playing again is the quieter choice. */
+.name-form:not([hidden]) + button { background: transparent; color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
